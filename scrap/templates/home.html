@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Smartphone Search Results</title>
+  </head>
+  <body>
+    <h1>Search for smartphones</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <label for="brand">Brand:</label>
+      <select name="brand" id="brand">
+        {% for brand in brands %}
+        <option value="{{ brand }}">{{ brand }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <label for="price">Max price:</label>
+      <input type="text" name="price" id="price" />
+      <br />
+      <input type="submit" value="Search" />
+    </form>
+    <hr />
+    {% if smartphones %}
+    <h2>Search results:</h2>
+    <ul>
+      {% for smartphone in smartphones %}
+      <li>
+        <a href="{{ smartphone.url }}">{{ smartphone.name }}</a>
+        <br />
+        {{ smartphone.brand }} - {{ smartphone.price }} TND
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </body>
+</html>
